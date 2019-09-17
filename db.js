@@ -68,6 +68,7 @@ const sync = async () => {
     { name: 'slo' }
   ];
   await Promise.all(place.map( pla => Place.create(pla)));
+
 };
 
 module.exports = {
