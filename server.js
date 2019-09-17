@@ -12,8 +12,7 @@ app.get('/', (req, res, next) => {
 
 app.get('/api/things', async ( req, res, next ) => {
   try {
-    const thing = await Thing.findAll();
-    res.send(thing);
+    res.send(await Thing.findAll({ include: [{model: Person, attributes : ['name', 'id']}] }));
   }
   catch(ex) {
     next(ex);
@@ -22,7 +21,7 @@ app.get('/api/things', async ( req, res, next ) => {
 
 app.get('/api/people', async ( req, res, next ) => {
   try {
-    res.send(await Person.findAll());
+    res.send(await Person.findAll({ include: [{model: Place, attributes : ['name', 'id']}]}));
   }
   catch(ex) {
     next(ex);
