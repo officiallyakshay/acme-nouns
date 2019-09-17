@@ -1,14 +1,14 @@
 const Sequelize = require('sequelize');
 const { STRING, UUID, UUIDV4 } = Sequelize;
 
-const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/acme-nouns')
+const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/acme_nouns')
 
 const Thing = conn.define('thing', {
   id: {
     type: UUID,
     primaryKey: true,
     defaultValue: UUIDV4,
-    unique: true,
+    // unique: true,
     allowNull: false,
     notEmpty: false
   },
@@ -20,7 +20,19 @@ const Person = conn.define('person', {
     type: UUID,
     primaryKey: true,
     defaultValue: UUIDV4,
-    unique: true,
+    // unique: true,
+    allowNull: false,
+    notEmpty: false
+  },
+  name: STRING
+});
+
+const Place = conn.define('place', {
+  id: {
+    type: UUID,
+    primaryKey: true,
+    defaultValue: UUIDV4,
+    // unique: true,
     allowNull: false,
     notEmpty: false
   },
@@ -32,7 +44,22 @@ const sync = async () => {
   const things = [
 
   ];
-  await Promise.all(products.map( product => Product.create(product)));
+  await Promise.all(things.map( thi => Thing.create(thi)));
+  const person = [
+
+  ];
+  await Promise.all(person.map( per => Person.create(per)));
+  const place = [
+
+  ];
+  await Promise.all(place.map( pla => Place.create(pla)));
 };
 
-sync();
+module.exports = {
+  sync,
+  models: {
+    Thing,
+    Person,
+    Place
+  }
+}
