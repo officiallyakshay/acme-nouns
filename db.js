@@ -39,18 +39,33 @@ const Place = conn.define('place', {
   name: STRING
 });
 
+Thing.belongsTo(Person);
+Person.hasMany(Thing);
+
+Person.belongsTo(Place);
+Place.hasMany(Person);
+
 const sync = async () => {
   await conn.sync({ force: true });
-  const things = [
 
+  const things = [
+    { name: 'plant' },
+    { name: 'pencil' },
+    { name: 'stapler' }
   ];
   await Promise.all(things.map( thi => Thing.create(thi)));
-  const person = [
 
+  const person = [
+    { name: 'moe' },
+    { name: 'larry' },
+    { name: 'curly' }
   ];
   await Promise.all(person.map( per => Person.create(per)));
-  const place = [
 
+  const place = [
+    { name: 'boston' },
+    { name: 'la' },
+    { name: 'slo' }
   ];
   await Promise.all(place.map( pla => Place.create(pla)));
 };
